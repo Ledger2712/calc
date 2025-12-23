@@ -13,12 +13,12 @@ def calculate_retail_book_price(
     # A5, 200 pages, 3000 copies
 
     base_pages = 200
-    base_quantity = 3000
+    base_quantity = 100
 
     format_coefficients = {
-        "Default": 2.0,
-        "Pro": 1.0,
-        "Max": 0.5
+        "Default": 1.0,
+        "Pro": 1.2,
+        "Max": 1.5
     }
 
     if format_code not in format_coefficients:
@@ -26,9 +26,9 @@ def calculate_retail_book_price(
 
     format_coefficients1 = {
         "128 Gb": 1.0,
-        "256 Gb": 1.5,
-        "512 Gb": 2.0,
-        "1 Tb": 2.5
+        "256 Gb": 1.2,
+        "512 Gb": 1.4,
+        "1 Tb": 1.5
     }
 
     if format_code1 not in format_coefficients1:
@@ -61,8 +61,8 @@ def calculate_retail_book_price(
     materials_cost = (
         materials_cost_base *
         quantity_factor *
-        pages_factor *
-        format_factor
+        format_factor +
+        pages_factor
     )
 
     labor_cost = labor_cost_base * quantity_factor
