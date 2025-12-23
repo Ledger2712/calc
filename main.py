@@ -6,7 +6,9 @@ def calculate_retail_book_price(
     pages,           # number of pages
     format_code,     # "A4", "A5", "A6"
     vat_percent,     # VAT (%)
-    discount_percent # discount (%)
+    discount_percent,
+    format_code1,
+    format_coefficients1# discount (%)
 ):
 
     # ===== BASE REFERENCE MODEL =====
@@ -16,16 +18,26 @@ def calculate_retail_book_price(
     base_quantity = 3000
 
     format_coefficients = {
-        "Default": 2.0,   # twice the paper area of A5
-        "Pro": 1.0,   # base format
-        "Max": 0.5    # half the paper area of A5
+        "Default": 2.0,
+        "Pro": 1.0,
+        "Max": 0.5
     }
 
     if format_code not in format_coefficients:
         raise ValueError("format_code must be 'Default', 'Pro' or 'Max'")
 
+    format_coefficients1 = {
+        "128 Gb": 1.0,
+        "256 Gb": 1.5,
+        "512 Gb": 2.0,
+        "1 Tb": 2.5
+    }
+
+    if format_code1 not in format_coefficients1:
+        raise ValueError("format_code must be '128 Gb', '256 Gb' or '512 Gb', '1 Tb")
+
     format_factor = format_coefficients[format_code]
-    pages_factor = pages / base_pages
+    pages_factor = format_coefficients1[format_code1]
     quantity_factor = quantity / base_quantity
 
     # ===== FIXED RUSSIAN MARKET COSTS (BASE MODEL) =====
