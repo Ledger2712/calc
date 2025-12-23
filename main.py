@@ -17,12 +17,12 @@ def calculate_retail_book_price(
 
     format_coefficients = {
         "Default": 2.0,   # twice the paper area of A5
-        "A5": 1.0,   # base format
-        "A6": 0.5    # half the paper area of A5
+        "Pro": 1.0,   # base format
+        "Max": 0.5    # half the paper area of A5
     }
 
     if format_code not in format_coefficients:
-        raise ValueError("format_code must be 'Default', 'A5' or 'A6'")
+        raise ValueError("format_code must be 'Default', 'Pro' or 'Max'")
 
     format_factor = format_coefficients[format_code]
     pages_factor = pages / base_pages
@@ -133,9 +133,9 @@ with st.form("price_calculator_form"):
 
     with col3:
         format_code = st.selectbox(
-            "Формат книги",
-            options=["Default", "A5", "A6"],
-            help="Выберите модель: Default (обычная), A5 (средний), A6 (маленький)"
+            "Модель",
+            options=["Default", "Pro", "Max"],
+            help="Выберите модель: Default (обычная), Pro (улучшенная), Max (максимальная)"
         )
 
     with col4:
@@ -200,7 +200,7 @@ if submit_button:
             with info_col1:
                 st.write(f"**Количество:** {quantity_val} копий")
                 st.write(f"**Страницы:** {pages_val}")
-                st.write(f"**Формат:** {format_code}")
+                st.write(f"**Модель:** {format_code}")
             with info_col2:
                 st.write(f"**НДС:** {vat_val}%")
                 st.write(f"**Скидка:** {discount_val}%")
