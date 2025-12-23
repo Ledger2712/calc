@@ -8,19 +8,7 @@ def calculate_retail_book_price(
     vat_percent,     # VAT (%)
     discount_percent # discount (%)
 ):
-    """
-    Расчет розничной цены книги на основе параметров.
 
-    Args:
-        quantity: Количество копий для печати
-        pages: Количество страниц
-        format_code: Формат книги ("A4", "A5", "A6")
-        vat_percent: Процент НДС
-        discount_percent: Процент скидки
-
-    Returns:
-        Финальная розничная цена с учетом НДС и скидки
-    """
     # ===== BASE REFERENCE MODEL =====
     # A5, 200 pages, 3000 copies
 
@@ -28,13 +16,13 @@ def calculate_retail_book_price(
     base_quantity = 3000
 
     format_coefficients = {
-        "A4": 2.0,   # twice the paper area of A5
+        "Default": 2.0,   # twice the paper area of A5
         "A5": 1.0,   # base format
         "A6": 0.5    # half the paper area of A5
     }
 
     if format_code not in format_coefficients:
-        raise ValueError("format_code must be 'A4', 'A5' or 'A6'")
+        raise ValueError("format_code must be 'Default', 'A5' or 'A6'")
 
     format_factor = format_coefficients[format_code]
     pages_factor = pages / base_pages
@@ -146,8 +134,8 @@ with st.form("price_calculator_form"):
     with col3:
         format_code = st.selectbox(
             "Формат книги",
-            options=["A4", "A5", "A6"],
-            help="Выберите формат: A4 (большой), A5 (средний), A6 (маленький)"
+            options=["Default", "A5", "A6"],
+            help="Выберите модель: Default (обычная), A5 (средний), A6 (маленький)"
         )
 
     with col4:
