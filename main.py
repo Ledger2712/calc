@@ -135,10 +135,10 @@ with st.form("price_calculator_form"):
         )
 
     with col2:
-        pages = st.text_input(
-            "Количество страниц",
-            value="200",
-            help="Введите количество страниц в книге"
+        format_code1 = st.selectbox(
+            "Память",
+            options=["128 Gb", "256 Gb", "512 Gb", "1 Tb"],
+            help="Выберите размер памяти: 128 Gb, 256 Gb, 512 Gb, 1 Tb."
         )
 
     col3, col4 = st.columns(2)
@@ -172,15 +172,12 @@ if submit_button:
     try:
         # Преобразуем текстовые поля в числа
         quantity_val = int(quantity)
-        pages_val = int(pages)
         vat_val = float(vat_percent)
         discount_val = float(discount_percent)
 
         # Валидация
         if quantity_val <= 0:
             st.error("❌ Количество копий должно быть больше 0")
-        elif pages_val <= 0:
-            st.error("❌ Количество страниц должно быть больше 0")
         elif vat_val < 0:
             st.error("❌ НДС не может быть отрицательным")
         elif discount_val < 0 or discount_val > 100:
@@ -189,7 +186,7 @@ if submit_button:
             # Расчет цены
             final_price = calculate_retail_book_price(
                 quantity=quantity_val,
-                pages=pages_val,
+                pages=format_code1,
                 format_code=format_code,
                 vat_percent=vat_val,
                 discount_percent=discount_val
@@ -211,7 +208,7 @@ if submit_button:
             info_col1, info_col2 = st.columns(2)
             with info_col1:
                 st.write(f"**Количество:** {quantity_val} копий")
-                st.write(f"**Страницы:** {pages_val}")
+                st.write(f"**Размер памяти:** {format_code1}")
                 st.write(f"**Модель:** {format_code}")
             with info_col2:
                 st.write(f"**НДС:** {vat_val}%")
