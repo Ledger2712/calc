@@ -6,7 +6,8 @@ def calculate_retail_book_price(
     format_code,     # "A4", "A5", "A6"
     vat_percent,     # VAT (%)
     discount_percent,
-    format_code1
+    format_code1,
+    materials_discount
 ):
 
     # ===== BASE REFERENCE MODEL =====
@@ -48,18 +49,26 @@ def calculate_retail_book_price(
     overhead_prod_percent = 20
     overhead_admin_percent = 15
 
-
-
     publisher_margin_percent = 20
     retailer_markup_percent = 1
 
     # ===== SCALE COSTS =====
+    if quantity > 100:
+        materials_discount = 0.9  # 10% скидка
+    elif quantity > 500:
+        materials_discount = 0.85
+    elif quantity > 1000:
+        materials_discount = 0.8
+        # 15% скидка
+    else:
+        materials_discount = 1.0
 
     materials_cost = (
         materials_cost_base *
         quantity_factor *
         format_factor *
-        pages_factor
+        pages_factor *
+        materials_discount
     )
 
     labor_cost = labor_cost_base * quantity_factor
