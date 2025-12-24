@@ -52,11 +52,11 @@ def calculate_retail_book_price(
     retailer_markup_percent = 1
 
     # ===== SCALE COSTS =====
-    if quantity > 100:
+    if quantity >= 100 and quantity < 499:
         materials_discount = 0.9  # 10% скидка
-    elif quantity > 500:
+    elif quantity >= 500 and quantity < 999:
         materials_discount = 0.85
-    elif quantity > 1000:
+    elif quantity >= 1000:
         materials_discount = 0.8
         # 15% скидка
     else:
