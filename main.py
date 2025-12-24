@@ -6,8 +6,7 @@ def calculate_retail_book_price(
     format_code,     # "A4", "A5", "A6"
     vat_percent,     # VAT (%)
     discount_percent,
-    format_code1,
-    materials_discount
+    format_code1
 ):
 
     # ===== BASE REFERENCE MODEL =====
