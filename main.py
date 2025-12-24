@@ -12,13 +12,14 @@ def calculate_retail_book_price(
     # ===== BASE REFERENCE MODEL =====
     # A5, 200 pages, 3000 copies
 
-    base_pages = 200
+
     base_quantity = 100
 
     format_coefficients = {
-        "Default": 1.0,
-        "Pro": 1.2,
-        "Max": 1.5
+        "iPhone 15": 1.0,
+        "iPhone 15 Plus": 1.08,
+        "iPhone 15 Pro": 1.25,
+        "iPhone 15 Pro Max": 1.4
     }
 
     if format_code not in format_coefficients:
@@ -26,16 +27,16 @@ def calculate_retail_book_price(
 
     format_coefficients1 = {
         "128 Gb": 1.0,
-        "256 Gb": 1.2,
-        "512 Gb": 1.4,
-        "1 Tb": 1.5
+        "256 Gb": 1.12,
+        "512 Gb": 1.28,
+        "1 Tb": 1.45
     }
 
     if format_code1 not in format_coefficients1:
         raise ValueError("format_code must be '128 Gb', '256 Gb' or '512 Gb', '1 Tb")
 
     format_factor = format_coefficients[format_code]
-    pages_factor = format_coefficients1[format_code1] * base_pages
+    pages_factor = format_coefficients1[format_code1]
     quantity_factor = quantity / base_quantity
 
     # ===== FIXED RUSSIAN MARKET COSTS (BASE MODEL) =====
@@ -144,8 +145,8 @@ with st.form("price_calculator_form"):
     with col3:
         format_code = st.selectbox(
             "Модель",
-            options=["Default", "Pro", "Max"],
-            help="Выберите модель: Default (обычная), Pro (улучшенная), Max (максимальная)"
+            options=["iPhone 15", "iPhone 15 PLus", "iPhone 15 Pro", "iPhone 15 Pro Max"],
+            help="Выберите модель телефона"
         )
 
     with col4:
