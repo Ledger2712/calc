@@ -202,7 +202,7 @@ if submit_button:
             st.markdown("###  Параметры расчета:")
             info_col1, info_col2 = st.columns(2)
             with info_col1:
-                st.write(f"**Количество:** {quantity_val} копий")
+                st.write(f"**Количество:** {quantity_val} шт.")
                 st.write(f"**Размер памяти:** {format_code1}")
                 st.write(f"**Модель:** {format_code}")
             with info_col2:
