@@ -41,28 +41,24 @@ def calculate_retail_book_price(
 
     # ===== FIXED RUSSIAN MARKET COSTS (BASE MODEL) =====
 
-    materials_cost_base = 85000
-    labor_cost_base = 30000
-    amortization_cost_base = 12500
+    materials_cost_base = 2100000
+    labor_cost_base = 1200000
+    amortization_cost_base = 300000
 
     overhead_prod_percent = 20
     overhead_admin_percent = 15
 
-    design_cost = 25000
-    editing_cost = 20000
-    isbn_cost = 3000
-    marketing_cost = 50000
-    logistics_cost = 20000
 
-    publisher_margin_percent = 30
-    retailer_markup_percent = 70
+
+    publisher_margin_percent = 20
+    retailer_markup_percent = 1
 
     # ===== SCALE COSTS =====
 
     materials_cost = (
         materials_cost_base *
         quantity_factor *
-        format_factor +
+        format_factor *
         pages_factor
     )
 
@@ -82,18 +78,10 @@ def calculate_retail_book_price(
     overhead_production = base_cost_total * overhead_prod_percent / 100
     overhead_admin = base_cost_total * overhead_admin_percent / 100
 
-    commercial_costs = (
-        design_cost +
-        editing_cost +
-        isbn_cost +
-        marketing_cost +
-        logistics_cost
-    )
 
     overhead_total = (
         overhead_production +
-        overhead_admin +
-        commercial_costs
+        overhead_admin
     )
 
     # ===== FULL COST =====
@@ -145,7 +133,7 @@ with st.form("price_calculator_form"):
     with col3:
         format_code = st.selectbox(
             "Модель",
-            options=["iPhone 15", "iPhone 15 PLus", "iPhone 15 Pro", "iPhone 15 Pro Max"],
+            options=["iPhone 15", "iPhone 15 Plus", "iPhone 15 Pro", "iPhone 15 Pro Max"],
             help="Выберите модель телефона"
         )
 
